@@ -125,7 +125,7 @@ export const AuthModal: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-void flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center p-6 relative overflow-hidden">
       {/* Background glow accents */}
       <div className="absolute top-[10%] left-[20%] w-64 h-64 bg-gold/10 blur-[100px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[10%] right-[20%] w-64 h-64 bg-slate/10 blur-[100px] rounded-full pointer-events-none" />

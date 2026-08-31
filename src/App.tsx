@@ -44,7 +44,7 @@ const MainLayout: React.FC = () => {
 
   if (!authReady) {
     return (
-      <div className="h-screen bg-void flex items-center justify-center">
+      <div className="h-screen bg-[#0A0A0A] flex items-center justify-center">
         <div className="w-8 h-8 rounded-full border-2 border-gold border-t-transparent animate-spin shadow-[0_0_15px_rgba(255,215,0,0.5)]" />
       </div>
     );
@@ -55,7 +55,7 @@ const MainLayout: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-void overflow-hidden">
+    <div className="flex flex-col h-[100dvh] bg-[#0A0A0A] overflow-hidden">
       <main
         onScroll={handleScroll}
         className="flex-1 overflow-x-hidden overflow-y-auto pb-20 no-scrollbar relative"
