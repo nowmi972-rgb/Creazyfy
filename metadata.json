@@ -1,0 +1,6 @@
+{
+  "name": "Binance Cloud",
+  "description": "Binance Cloud official task and earning platform with Firebase integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

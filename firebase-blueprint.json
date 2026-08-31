@@ -1,0 +1,75 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User profile with balance, verification status, and referral tracking",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "balance": { "type": "number" },
+        "totalWithdraw": { "type": "number" },
+        "todayReferrals": { "type": "number" },
+        "isVerified": { "type": "boolean" },
+        "referrerUid": { "type": "string" },
+        "lastClaimDate": { "type": "string" },
+        "availableClaims": { "type": "number" },
+        "avatarColor": { "type": "string" },
+        "spinsUsed": { "type": "number" },
+        "currency": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "name", "email", "balance", "isVerified"]
+    },
+    "DepositRecord": {
+      "title": "Deposit Record",
+      "description": "User deposit transaction",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "amount": { "type": "number" },
+        "method": { "type": "string" },
+        "trxId": { "type": "string" },
+        "type": { "type": "string" },
+        "status": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["uid", "amount", "method", "trxId", "status", "timestamp"]
+    },
+    "WithdrawalRecord": {
+      "title": "Withdrawal Record",
+      "description": "User withdrawal request",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "amount": { "type": "number" },
+        "method": { "type": "string" },
+        "destination": { "type": "string" },
+        "status": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["uid", "amount", "method", "destination", "status", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "#/entities/UserProfile",
+      "description": "User profile collection"
+    },
+    "/deposits/{depositId}": {
+      "schema": "#/entities/DepositRecord",
+      "description": "Deposits collection"
+    },
+    "/withdrawals/{withdrawalId}": {
+      "schema": "#/entities/WithdrawalRecord",
+      "description": "Withdrawals collection"
+    },
+    "/config/payment_numbers": {
+      "schema": "object",
+      "description": "Payment numbers configuration"
+    }
+  }
+}
