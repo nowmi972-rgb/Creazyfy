@@ -79,7 +79,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   useEffect(() => {
+    // Safety timer: Ensure authReady is set even if Firebase Auth takes long or is blocked
+    const fallbackTimer = setTimeout(() => {
+      setAuthReady(true);
+    }, 1500);
+
     const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
+      clearTimeout(fallbackTimer);
       setUser(currentUser);
       if (currentUser) {
         const userDocRef = doc(db, 'users', currentUser.uid);

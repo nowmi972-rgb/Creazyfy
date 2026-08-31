@@ -124,7 +124,9 @@ export const WalletTab: React.FC = () => {
 
     try {
       soundManager.playPop();
-      const newDepositRecord = {
+      const newDepositRecord: TransactionRecord = {
+        id: `dep-${Date.now()}`,
+        _category: 'deposit',
         uid: profile.uid,
         name: profile.name,
         amount: finalAmount,
@@ -136,16 +138,22 @@ export const WalletTab: React.FC = () => {
       };
 
       try {
-        await addDoc(collection(db, 'deposits'), newDepositRecord);
+        await addDoc(collection(db, 'deposits'), {
+          uid: newDepositRecord.uid,
+          name: newDepositRecord.name,
+          amount: newDepositRecord.amount,
+          method: newDepositRecord.method,
+          trxId: newDepositRecord.trxId,
+          type: newDepositRecord.type,
+          status: newDepositRecord.status,
+          timestamp: newDepositRecord.timestamp
+        });
       } catch (dbErr) {
         console.warn("Deposit write notice:", dbErr);
       }
 
       // Add to local state immediately
-      setTransactions(prev => [
-        { id: `dep-${Date.now()}`, _category: 'deposit', ...newDepositRecord },
-        ...prev
-      ]);
+      setTransactions(prev => [newDepositRecord, ...prev]);
 
       if (isVerificationDeposit) {
         showToast("Verification deposit submitted for approval.");
@@ -194,7 +202,9 @@ export const WalletTab: React.FC = () => {
     soundManager.playPop();
 
     try {
-      const newWithdrawalRecord = {
+      const newWithdrawalRecord: TransactionRecord = {
+        id: `with-${Date.now()}`,
+        _category: 'withdrawal',
         uid: profile.uid,
         name: profile.name,
         amount: parsedAmount,
@@ -212,16 +222,21 @@ export const WalletTab: React.FC = () => {
 
       // Save record to Firestore
       try {
-        await addDoc(collection(db, 'withdrawals'), newWithdrawalRecord);
+        await addDoc(collection(db, 'withdrawals'), {
+          uid: newWithdrawalRecord.uid,
+          name: newWithdrawalRecord.name,
+          amount: newWithdrawalRecord.amount,
+          method: newWithdrawalRecord.method,
+          destination: newWithdrawalRecord.destination,
+          status: newWithdrawalRecord.status,
+          timestamp: newWithdrawalRecord.timestamp
+        });
       } catch (dbErr) {
         console.warn("Withdrawal write notice:", dbErr);
       }
 
       // Add to local state
-      setTransactions(prev => [
-        { id: `with-${Date.now()}`, _category: 'withdrawal', ...newWithdrawalRecord },
-        ...prev
-      ]);
+      setTransactions(prev => [newWithdrawalRecord, ...prev]);
 
       showToast("উইথড্রয়াল রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
       setAmount('');
